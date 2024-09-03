@@ -3,28 +3,26 @@ package com.arrays.maxconsecutiveonesafterflips;
 public class MaxConsecutiveOnesAfterFlips {
 	public static void main(String[] args) {
 		int arr[] = { 1, 0, 1, 0, 1, 1, 0, 1, 1, 1 };
-		int n = arr.length;
-		int zeros = 1;
-		int max_consecutive_ones = findZerosToFlip(arr, n, zeros);
-		System.out.println("Max consecutive ones after flipping " + zeros + " zeroses : " + max_consecutive_ones);
+		int k = 2;
+		int max_consecutive_ones = findZerosToFlip(arr, k);
+		System.out.println("Max consecutive ones after flipping zeroses : " + max_consecutive_ones);
 	}
 
-	private static int findZerosToFlip(int[] arr, int n, int zeros) {
-		int left = 0, right = 0, zeroCount = 0, maxOnes = 0;
-		while (right < n) {
-			if (arr[right] == 0) {
+	private static int findZerosToFlip(int arr[], int k) {
+		int start = 0, zeroCount = 0, maxConsecutiveOne = 0;
+
+		for (int end = 0; end < arr.length; end++) {
+			if (arr[end] == 0) {
 				zeroCount++;
 			}
-			while (zeroCount > zeros) {
-				if (arr[left] == 0) {
+			while (zeroCount > k) {
+				if (arr[start] == 0) {
 					zeroCount--;
 				}
-				left++;
+				start++;
 			}
-			maxOnes = Math.max(maxOnes, right - left + 1);
-			right++;
+			maxConsecutiveOne = Math.max(maxConsecutiveOne, end - start + 1);
 		}
-		return maxOnes;
+		return maxConsecutiveOne;
 	}
-
 }
